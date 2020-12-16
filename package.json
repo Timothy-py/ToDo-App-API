@@ -1,0 +1,25 @@
+{
+  "name": "todo-app-api",
+  "version": "1.0.0",
+  "description": "A ToDo App API to manage users monthly todo list.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Timothy-py/ToDo-App-API.git"
+  },
+  "author": "Timothy Adeyeye",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Timothy-py/ToDo-App-API/issues"
+  },
+  "homepage": "https://github.com/Timothy-py/ToDo-App-API#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.8.0",
+    "mongoose": "^5.11.8"
+  }
+}
