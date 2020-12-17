@@ -96,7 +96,39 @@ describe('ToDos API', () => {
 
 
     /**Test the UPDATE route  */
+    describe("POST /update/:id", () => {
+        it("It should Update the ToDo Item", (done) => {
+            
+            const todoId = "5fda99d329eaaa7c6ed52059"
+            const todoItem = {
+                // id
+                todo_name: "Todo App Test Updated",
+                status: false,
+                start_time: "2020-10-28T16:52:20.081+00:00",
+                end_time: "2021-10-28T16:52:20.081+00:00",
+                description: "Testing the Todo api endpoints with mocha and chai",
+                priority: "high"
+            };
 
+            chai.request("http://localhost:7000/todo/api")
+            .post(`/update/${todoId}`)
+            .send(todoItem)
+            .end((error, response) => {
+                // assertions
+                if(error) done(err);
+                expect(response).to.have.status(200);
+                expect(response.body).to.be.an('object');
+                // expect(response.body.data).to.have.property('_id');
+                expect(response.body.data).to.have.property('todo_name').eq("Todo App Test Updated");
+                expect(response.body.data).to.have.property('status').eq(false);
+                expect(response.body.data).to.have.property('start_time').eq("2020-10-28T16:52:20.081+00:00")
+                expect(response.body.data).to.have.property('end_time').eq("2021-10-28T16:52:20.081+00:00");
+                expect(response.body.data).to.have.property('description').eq("Testing the Todo api endpoints with mocha and chai");
+                expect(response.body.data).to.have.property('priority').eq("high");
+            done();
+            })
+        })
+    })
 
 
     /**Test the DELETE route  */
