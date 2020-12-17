@@ -1,3 +1,4 @@
+const { Result } = require('express-validator');
 const Todo = require('../models/todo')
 
 
@@ -142,4 +143,34 @@ exports.todoDetail = (req, res) => {
         })
     })
     
+};
+
+
+// Search query for a todo item
+exports.todoSearch = (req, res) => {
+
+    Todo.find({
+        $and: [
+            {"todo_name": {$regex: req.body.todo_name, $options: "$i"}},
+            {"priority": {$regex: req.body.priority, $options: "$i"}}
+        ]
+    })
+    .then((result) => {
+        if((result.length) > 0){
+            res.status(200).json({
+                message: `${result.length} Results Found`,
+                data: result
+            })
+        }else{
+            res.status(200).json({
+                message: `No Match Found`
+            })
+        }
+    })
+    .catch((error) => {
+        res.status(400).json({
+            message: `Unable to perform search query. Error: ${error}`
+        })
+    })
+
 };

@@ -26,4 +26,8 @@ router.get('/todos', todoController.getAllTodo);
 // GET request Endpoint for retrieving the detail of a todo item
 router.get('/todo/:id', todoController.todoDetail);
 
+// POST request Endpoinf for searching through the db for a todo item
+// with a specified todo_name and priority
+router.post('/search', todoController.todoSearch);
+
 module.exports = router;
