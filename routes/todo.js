@@ -11,13 +11,16 @@ router.get('/', indexController.getIndex);
 
 //******* TODO ROUTES **********
 
-// Post request Endpoint for Creating a new  todo
+// POST request Endpoint for Creating a new  todo
 router.post('/create', todoController.createNewTodo);
 
-// POst request Endpoint for Updating a Todo Item
+// POST request Endpoint for Updating a Todo Item
 router.post('/update/:id', todoController.updateTodo);
 
-// Delete request Endpoint for Deleting a Todo Item
+// DELETE request Endpoint for Deleting a Todo Item
 router.delete('/delete/:id', todoController.deleteTodo);
+
+// GET request Endpoint for getting all todo items
+router.get('/todos', todoController.getAllTodo);
 
 module.exports = router;

@@ -92,3 +92,35 @@ exports.deleteTodo = (req, res) => {
     })
 
 };
+
+// Get all Todo Items
+exports.getAllTodo = (req, res) => {
+
+    Todo.find()
+    .then((todos) => {
+
+        let filter_todo = []
+        // for each of the todo items retrieved from the db, 
+        // get out just the todo_name and priority,
+        // save them in a new un-named object,
+        // push the data object to filter_todo array
+        todos.forEach((todo) => {{
+            filter_todo.push({
+                "todo_name": todo.todo_name,
+                "priority": todo.priority
+            })
+        }})
+
+        // response
+        res.status(200).json({
+            message: "All Todo Items Retrieved Successfully",
+            data: filter_todo
+        })
+    })
+    .catch((error) => {
+        res.status(400).json({
+            message: `Unable to retrieve all todo items ${error}`
+        })
+    })
+
+};
