@@ -106,6 +106,7 @@ exports.getAllTodo = (req, res) => {
         // push the data object to filter_todo array
         todos.forEach((todo) => {{
             filter_todo.push({
+                "_id": todo._id,
                 "todo_name": todo.todo_name,
                 "priority": todo.priority
             })
@@ -123,4 +124,22 @@ exports.getAllTodo = (req, res) => {
         })
     })
 
+};
+
+// Get todo item details
+exports.todoDetail = (req, res) => {
+
+    Todo.findById(req.params.id)
+    .then((todoItem) => {
+        res.status(200).json({
+            message: "ToDo Item Details Retrieved Successfully",
+            data: todoItem
+        })
+    })
+    .catch((error) => {
+        res.status(400).json({
+            message: `Unable to retrieve Todo Item Details. Error: ${error}`
+        })
+    })
+    
 };

@@ -23,4 +23,7 @@ router.delete('/delete/:id', todoController.deleteTodo);
 // GET request Endpoint for getting all todo items
 router.get('/todos', todoController.getAllTodo);
 
+// GET request Endpoint for retrieving the detail of a todo item
+router.get('/todo/:id', todoController.todoDetail);
+
 module.exports = router;
