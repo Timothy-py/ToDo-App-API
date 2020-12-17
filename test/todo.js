@@ -1,11 +1,9 @@
 const { expect } = require("chai");
 let chai = require("chai");
 let chaiHttp = require("chai-http");
-const { response } = require("../server");
-let server = require("../server");
 
 
-// Assertion Style: should
+// Assertion Style: expect
 chai.expect();
 
 chai.use(chaiHttp);
@@ -132,7 +130,20 @@ describe('ToDos API', () => {
 
 
     /**Test the DELETE route  */
+    describe("DELETE /delete/:id", () => {
+        it("It should DELETE an existing todo item", (done) => {
+            const todoId = "5fda99d329eaaa7c6ed52059"
 
+            chai.request("http://localhost:7000/todo/api")
+                .delete(`/delete/${todoId}`)
+                .end((error, response) => {
+                    // assertions
+                    if(error) done(err);
+                    expect(response).to.have.status(200);
+                    expect(response.body).to.have.property('message').eq("Todo Item Deleted Successfully");
+                })
+        })
+    })
 
 
     /**Test the SEARCH route  */
