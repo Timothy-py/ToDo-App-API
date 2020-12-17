@@ -67,7 +67,7 @@ exports.createNewTodo = [
         // Insert the todo item into the DB
         await newTodo.save()
         .then((todoItem) => {
-            res.status(200).json({
+            res.status(201).json({
                 message: "ToDo Item Created Successfully",
                 data: todoItem
             })

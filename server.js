@@ -24,18 +24,12 @@ connection.once('open', ()=>{
 // specify root url path for app
 app.use('/todo/api', todoapi)
 
-// catch error 404 and forward to error handler
-app.use((req, res, next) => {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next();
-})
-
 
 // configure app PORT
 app.listen(port, ()=>{
     console.log(`Server is running on PORT: ${port}`);
 })
+
 
 module.exports = app;
 
