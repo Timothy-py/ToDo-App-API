@@ -25,16 +25,14 @@ exports.createNewTodo = (req, res) => {
     // Insert the todo item into the DB
     newTodo.save()
     .then((todoItem) => {
-        res.json({
+        res.status(200).json({
             message: "ToDo Item Created Successfully",
-            data: todoItem,
-            status: true
+            data: todoItem
         })
     })
     .catch((error) => {
-        res.json({
+        res.status(400).json({
             message: `Unable to create Todo Item: ${error}`,
-            status: false
         })
     })
 
@@ -57,24 +55,39 @@ exports.updateTodo = (req, res) => {
         // now save the new todo item: update
         todoItem.save()
         .then((newTodo) => {
-            res.json({
+            res.status(200).json({
                 message: "ToDo Item Updated Succesfully",
-                data: newTodo,
-                status: true
+                data: newTodo
             })
         })
         .catch((error) => {
-            res.json({
-                message: `Unable to Update the ToDo Item ${error}`,
-                status: false
+            res.status(400).json({
+                message: `Unable to Update the ToDo Item ${error}`
             })
         })
 
     })
     .catch((error) => {
-        res.json({
+        res.status(400).json({
             message: `Cannot find the ToDo with the id:(${req.params.id}): Error:${error}`,
             status: false
+        })
+    })
+
+};
+
+// Delete a Todo Item
+exports.deleteTodo = (req, res) => {
+
+    Todo.findByIdAndDelete(req.params.id)
+    .then(() => {
+        res.status(200).json({
+            message: "Todo Item Deleted Successfully"
+        })
+    })
+    .catch((error) => {
+        res.status(400).json({
+            message: `Unable to delete todo item. Error: ${error}`
         })
     })
 
