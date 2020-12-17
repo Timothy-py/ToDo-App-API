@@ -14,8 +14,8 @@ router.get('/', indexController.getIndex);
 // Post request Endpoint for Creating a new  todo
 router.post('/create', todoController.createNewTodo);
 
-
-
+// POst request Endpoint for Updating a Todo Item
+router.post('/update/:id', todoController.updateTodo);
 
 
 module.exports = router;

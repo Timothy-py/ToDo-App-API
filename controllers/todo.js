@@ -39,3 +39,43 @@ exports.createNewTodo = (req, res) => {
     })
 
 }
+
+
+// Update a Todo Item
+exports.updateTodo = (req, res) => {
+
+    // find the todo item through the id passed in the url
+    Todo.findById(req.params.id)
+    .then((todoItem) => {
+        todoItem.todo_name = req.body.todo_name;
+        todoItem.status = req.body.status;
+        todoItem.start_time = req.body.start_time;
+        todoItem.end_time = req.body.end_time;
+        todoItem.description = req.body.description,
+        todoItem.priority = req.body.priority
+
+        // now save the new todo item: update
+        todoItem.save()
+        .then((newTodo) => {
+            res.json({
+                message: "ToDo Item Updated Succesfully",
+                data: newTodo,
+                status: true
+            })
+        })
+        .catch((error) => {
+            res.json({
+                message: `Unable to Update the ToDo Item ${error}`,
+                status: false
+            })
+        })
+
+    })
+    .catch((error) => {
+        res.json({
+            message: `Cannot find the ToDo with the id:(${req.params.id}): Error:${error}`,
+            status: false
+        })
+    })
+
+};
