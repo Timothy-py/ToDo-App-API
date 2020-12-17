@@ -17,7 +17,7 @@ describe('ToDos API', () => {
             .get("/todos")
             .end((error, response) => {
                 // assertions
-                if(error) done(err);
+                if(error) done(error);
                 expect(response).to.have.status(200);
                 expect(response).to.be.an('object');
                 expect(response.body.data).to.be.an('array');
@@ -33,16 +33,16 @@ describe('ToDos API', () => {
     describe("GET /todo/:id", () => {
         it("It should GET the detail of a ToDo Item", (done) => {
             
-            const todoId = "5fda99d329eaaa7c6ed52059"
+            const todoId = "5fdaa25fdabf1002c4b5e67f"
 
             chai.request("http://localhost:7000/todo/api")
             .get(`/todo/${todoId}`)
             .end((error, response) => {
                 // assertions
-                if(error) done(err);
+                if(error) done(error);
                 expect(response).to.have.status(200);
                 expect(response).to.be.an('object');
-                expect(response.body.data).to.be.an('object');
+                expect(response.body).to.have.property('data').to.be.an('object')
                 expect(response.body.data).to.have.property('_id');
                 expect(response.body.data).to.have.property('todo_name');
                 expect(response.body.data).to.have.property('status');
@@ -76,14 +76,14 @@ describe('ToDos API', () => {
                 .send(todoItem)
                 .end((error, response) => {
                     // assertions
-                    if(error) done(err);
+                    if(error) done(error);
                     expect(response).to.have.status(201);
                     expect(response.body).to.be.an('object');
-                    // expect(response.body.data).to.have.property('_id');
+                    expect(response.body.data).to.have.property('_id');
                     expect(response.body.data).to.have.property('todo_name').eq("Todo App Test");
                     expect(response.body.data).to.have.property('status').eq(true);
-                    expect(response.body.data).to.have.property('start_time').eq("2020-10-28T16:52:20.081+00:00")
-                    expect(response.body.data).to.have.property('end_time').eq("2021-10-28T16:52:20.081+00:00");
+                    expect(response.body.data).to.have.property('start_time')
+                    expect(response.body.data).to.have.property('end_time')
                     expect(response.body.data).to.have.property('description').eq("Testing the Todo api endpoints with mocha and chai");
                     expect(response.body.data).to.have.property('priority').eq("high");
                 done();
@@ -97,7 +97,7 @@ describe('ToDos API', () => {
     describe("POST /update/:id", () => {
         it("It should Update the ToDo Item", (done) => {
             
-            const todoId = "5fda99d329eaaa7c6ed52059"
+            const todoId = "5fdaa25fdabf1002c4b5e67f"
             const todoItem = {
                 // id
                 todo_name: "Todo App Test Updated",
@@ -113,14 +113,14 @@ describe('ToDos API', () => {
             .send(todoItem)
             .end((error, response) => {
                 // assertions
-                if(error) done(err);
+                if(error) done(error);
                 expect(response).to.have.status(200);
                 expect(response.body).to.be.an('object');
-                // expect(response.body.data).to.have.property('_id');
+                expect(response.body.data).to.have.property('_id');
                 expect(response.body.data).to.have.property('todo_name').eq("Todo App Test Updated");
                 expect(response.body.data).to.have.property('status').eq(false);
-                expect(response.body.data).to.have.property('start_time').eq("2020-10-28T16:52:20.081+00:00")
-                expect(response.body.data).to.have.property('end_time').eq("2021-10-28T16:52:20.081+00:00");
+                expect(response.body.data).to.have.property('start_time')
+                expect(response.body.data).to.have.property('end_time')
                 expect(response.body.data).to.have.property('description').eq("Testing the Todo api endpoints with mocha and chai");
                 expect(response.body.data).to.have.property('priority').eq("high");
             done();
@@ -132,15 +132,16 @@ describe('ToDos API', () => {
     /**Test the DELETE route  */
     describe("DELETE /delete/:id", () => {
         it("It should DELETE an existing todo item", (done) => {
-            const todoId = "5fda99d329eaaa7c6ed52059"
+            const todoId = "5fdba79feb6a1b1698d015cc"
 
             chai.request("http://localhost:7000/todo/api")
                 .delete(`/delete/${todoId}`)
                 .end((error, response) => {
                     // assertions
-                    if(error) done(err);
+                    if(error) done(error);
                     expect(response).to.have.status(200);
                     expect(response.body).to.have.property('message').eq("Todo Item Deleted Successfully");
+                done();
                 })
         })
     })
@@ -160,7 +161,7 @@ describe('ToDos API', () => {
                 .send(todoItem)
                 .end((error, response) => {
                     // assertions
-                    if(error) done(err);
+                    if(error) done(error);
                     expect(response).to.have.status(200);
                     expect(response.body).to.be.an('object');
                     expect(response.body).to.have.property('message')
