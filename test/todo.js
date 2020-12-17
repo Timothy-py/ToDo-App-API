@@ -147,4 +147,29 @@ describe('ToDos API', () => {
 
 
     /**Test the SEARCH route  */
+    describe("POST Search", () => {
+        it("It should search for a todo item", (done) => {
+
+            const todoItem = {
+                todo_name: "Todo App Test",
+                priority: "high"
+            };
+
+            chai.request("http://localhost:7000/todo/api")
+                .post("/search")
+                .send(todoItem)
+                .end((error, response) => {
+                    // assertions
+                    if(error) done(err);
+                    expect(response).to.have.status(200);
+                    expect(response.body).to.be.an('object');
+                    expect(response.body).to.have.property('message')
+                done();
+                })
+
+        })
+    })
+
+
+
 })
